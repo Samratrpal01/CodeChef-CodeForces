@@ -1,0 +1,45 @@
+
+#include<bits/stdc++.h>
+ using namespace std;
+ 
+ void solveAt(int tc = 0){
+    long long n; cin>>n;
+    vector<long long> a(n); 
+    for(auto i=0;i<n;i++)
+    cin>>a[i];
+ 
+    long long  last = a.back();
+    long long ans = 0;
+    int len = 0;
+    while(n - 1 - len >= 0 && last == a[n - 1 - len]) ++len;
+    int pos = n - 1 - len;
+    while(pos >= 0){
+      int it = len;
+      bool found = false;
+      while(it > 0 && pos >= 0){
+        if(a[pos] != last) found = true;
+        --it;
+        --pos;
+      }
+      ans += found;
+      len *= 2;
+      while(pos >= 0 && a[pos] == last) ++len, --pos;
+    }
+    cout << ans << endl;
+ 
+  }
+
+ 
+int main() {
+ 
+ 
+ 
+  int test = 1;
+  cin >> test;
+  int k = test;
+  while (k--) solveAt(test - k);
+ 
+ 
+ 
+  return 0;
+}
