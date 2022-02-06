@@ -1,0 +1,73 @@
+You are given a set of 𝑛 (𝑛 is always a power of 2) elements containing all integers 0,1,2,…,𝑛−1 exactly once.
+
+Find 𝑛2 pairs of elements such that:
+
+Each element in the set is in exactly one pair.
+The sum over all pairs of the bitwise AND of its elements must be exactly equal to 𝑘. Formally, if 𝑎𝑖 and 𝑏𝑖 are the elements of the 𝑖-th pair, then the following must hold:
+∑𝑖=1𝑛/2𝑎𝑖&𝑏𝑖=𝑘,
+where & denotes the bitwise AND operation.
+If there are many solutions, print any of them, if there is no solution, print −1 instead.
+
+Input
+The input consists of multiple test cases. The first line contains a single integer 𝑡 (1≤𝑡≤400) — the number of test cases. Description of the test cases follows.
+
+Each test case consists of a single line with two integers 𝑛 and 𝑘 (4≤𝑛≤216, 𝑛 is a power of 2, 0≤𝑘≤𝑛−1).
+
+The sum of 𝑛 over all test cases does not exceed 216. All test cases in each individual input will be pairwise different.
+
+Output
+For each test case, if there is no solution, print a single line with the integer −1.
+
+Otherwise, print 𝑛2 lines, the 𝑖-th of them must contain 𝑎𝑖 and 𝑏𝑖, the elements in the 𝑖-th pair.
+
+If there are many solutions, print any of them. Print the pairs and the elements in the pairs in any order.
+
+Example
+inputCopy
+4
+4 0
+4 1
+4 2
+4 3
+outputCopy
+0 3
+1 2
+0 2
+1 3
+0 1
+2 3
+-1
+Note
+In the first test, (0&3)+(1&2)=0.
+
+In the second test, (0&2)+(1&3)=1.
+
+In the third test, (0&1)+(2&3)=2.
+
+In the fourth test, there is no solution.
+
+Codes Are:-
+#include<bits/stdc++.h>
+using namespace std;
+int a[100005];
+ 
+int main () {
+	int T;
+	scanf("%d", &T);
+	while (T--) {
+		int n, k;
+		scanf("%d%d", &n, &k);
+		if (n == 4 && k == 3) {
+			puts("-1");
+			continue;
+		}
+		for (int i = 0; i < n; i++) a[i] = i;
+		if (k == n-1) {
+			swap(a[0], a[n-2]);
+			swap(a[1], a[n-4]);
+		}else {
+			swap(a[0], a[k]);
+		}
+		for (int i = 0; i < n/2; i++) printf("%d %d\n", a[i], a[n-i-1]);
+	}
+}
