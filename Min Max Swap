@@ -1,0 +1,68 @@
+You are given two arrays 𝑎 and 𝑏 of 𝑛 positive integers each. You can apply the following operation to them any number of times:
+
+Select an index 𝑖 (1≤𝑖≤𝑛) and swap 𝑎𝑖 with 𝑏𝑖 (i. e. 𝑎𝑖 becomes 𝑏𝑖 and vice versa).
+Find the minimum possible value of max(𝑎1,𝑎2,…,𝑎𝑛)⋅max(𝑏1,𝑏2,…,𝑏𝑛) you can get after applying such operation any number of times (possibly zero).
+
+Input
+The input consists of multiple test cases. The first line contains a single integer 𝑡 (1≤𝑡≤100) — the number of test cases. Description of the test cases follows.
+
+The first line of each test case contains an integer 𝑛 (1≤𝑛≤100) — the length of the arrays.
+
+The second line of each test case contains 𝑛 integers 𝑎1,𝑎2,…,𝑎𝑛 (1≤𝑎𝑖≤10000) where 𝑎𝑖 is the 𝑖-th element of the array 𝑎.
+
+The third line of each test case contains 𝑛 integers 𝑏1,𝑏2,…,𝑏𝑛 (1≤𝑏𝑖≤10000) where 𝑏𝑖 is the 𝑖-th element of the array 𝑏.
+
+Output
+For each test case, print a single integer, the minimum possible value of max(𝑎1,𝑎2,…,𝑎𝑛)⋅max(𝑏1,𝑏2,…,𝑏𝑛) you can get after applying such operation any number of times.
+
+Example
+inputCopy
+3
+6
+1 2 6 5 1 2
+3 4 3 2 2 5
+3
+3 3 3
+3 3 3
+2
+1 2
+2 1
+outputCopy
+18
+9
+2
+
+Codes Are:-
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        int *arr=new int[n];
+        for(auto i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        int *brr=new int[n];
+        for(auto i=0;i<n;i++)
+        {
+            cin>>brr[i];
+        }
+        
+        for(auto i=0;i<n;i++)
+        {
+            if(arr[i]>brr[i])
+            {
+                swap(arr[i],brr[i]);
+            }
+        }
+        int temp=*max_element(arr,arr+n)*(*max_element(brr,brr+n));
+        
+       cout<<temp<<endl;
+    }
+}
