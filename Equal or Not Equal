@@ -1,0 +1,59 @@
+Description Are:-
+You had 𝑛 positive integers 𝑎1,𝑎2,…,𝑎𝑛 arranged in a circle. For each pair of neighboring numbers (𝑎1 and 𝑎2, 𝑎2 and 𝑎3, ..., 𝑎𝑛−1 and 𝑎𝑛, and 𝑎𝑛 and 𝑎1), you wrote down: are the numbers in the pair equal or not.
+
+Unfortunately, you've lost a piece of paper with the array 𝑎. Moreover, you are afraid that even information about equality of neighboring elements may be inconsistent. So, you are wondering: is there any array 𝑎 which is consistent with information you have about equality or non-equality of corresponding pairs?
+
+Input
+The first line contains a single integer 𝑡 (1≤𝑡≤1000) — the number of test cases. Next 𝑡 cases follow.
+
+The first and only line of each test case contains a non-empty string 𝑠 consisting of characters E and/or N. The length of 𝑠 is equal to the size of array 𝑛 and 2≤𝑛≤50. For each 𝑖 from 1 to 𝑛:
+
+if 𝑠𝑖= E then 𝑎𝑖 is equal to 𝑎𝑖+1 (𝑎𝑛=𝑎1 for 𝑖=𝑛);
+if 𝑠𝑖= N then 𝑎𝑖 is not equal to 𝑎𝑖+1 (𝑎𝑛≠𝑎1 for 𝑖=𝑛).
+Output
+For each test case, print YES if it's possible to choose array 𝑎 that are consistent with information from 𝑠 you know. Otherwise, print NO.
+
+It can be proved, that if there exists some array 𝑎, then there exists an array 𝑎 of positive integers with values less or equal to 109
+
+Codes Are:-
+#include<bits/stdc++.h>
+using namespace std;
+void solve()
+{
+    string s;
+  cin>>s;
+  int n=s.size();
+  
+  int e=0,ne=0;
+ 
+  for(int i=0;i<n;i++)
+  {
+    if(s[i]=='E')
+      e++;
+    else
+      ne++;
+  }
+ 
+  if(ne==1 && e==n-1)
+  {
+    cout<<"NO"<<"\n";
+    return;
+  }
+  if(s=="EN" || s=="NE")
+    cout<<"NO"<<"\n";
+  else
+    cout<<"YES"<<"\n";
+}
+int main()
+{
+    int t = 1;
+    cin >> t;
+    int t1=1;
+    while(t--)
+    {
+        solve();
+        t1++;
+    }
+ 
+    return 0;
+}
