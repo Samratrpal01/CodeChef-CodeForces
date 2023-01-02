@@ -25,6 +25,7 @@ using namespace std;
 #define pn cout<<"NO\n";
 #define py cout<<"YES\n";
 #define MOD 998244353
+// assert(q==0); is usally used to terminate whole when certain codition not follow true.
 void rotate(vector<vector<int> >&v,int n)
 {
     for(int i=0;i<n/2;i++)
@@ -112,35 +113,34 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
      
  }
 void fun()
-{
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
 {  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
+    ll n,m;
+    cin>>n>>m;
+   priority_queue<int,vector<int>,greater<int> >temp;
+   REP(i,0,n)
+   {
+    int tt;
+    cin>>tt;
+    temp.push(tt);
+   }
 
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
+   REP(i,0,m)
+   {
+    ll tt;
+    cin>>tt;
+    temp.pop();
+    temp.push(tt);
+   }
 
+   ll result=0;
+   while(!temp.empty())
+   {
+    result+=temp.top();
+    temp.pop();
+   }
+
+   cout<<result<<endl;
+    
     
 }
 
@@ -151,8 +151,8 @@ int32_t main()
        ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-  //t=1;
+    ll t;
+    t=1;
     cin>>t;
    while(t--)
     fun();

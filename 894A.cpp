@@ -113,35 +113,37 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
 void fun()
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
-{  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
+ 
+  string s;
+  cin>>s;
+ int n=s.size();
+vi cnt(n,0);
+REP(i,0,n)
+{
+    if(s[i]=='Q')
+    cnt[i]++;
+}
+vi pre(n,0),suf(n,0);
+pre[0]=cnt[0];
+REP(i,1,n)
+{
+    pre[i]=pre[i-1]+cnt[i];
+}
+suf[n-1]=cnt[n-1];
+REPI(i,0,n-1)
+suf[i]=suf[i+1]+cnt[i];
 
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
+int ans=0;
+REP(i,1,n-1)
+{
+    if(s[i]=='A')
+    ans+=pre[i-1]*suf[i+1];
+}
 
-    
+cout<<ans<<endl;
+
+
+
 }
 
   
@@ -152,8 +154,8 @@ int32_t main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t;
-  //t=1;
-    cin>>t;
+  t=1;
+    //cin>>t;
    while(t--)
     fun();
 //fun();

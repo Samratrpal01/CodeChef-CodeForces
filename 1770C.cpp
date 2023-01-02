@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
+#include<algorithm>
+#include<numeric>
 using namespace std;
-
 #define M1 1000000007
 #define M2 998244353
 #define ll long long
@@ -25,6 +26,8 @@ using namespace std;
 #define pn cout<<"NO\n";
 #define py cout<<"YES\n";
 #define MOD 998244353
+// assert(q==0); is usally used to terminate whole when certain codition not follow true.
+
 void rotate(vector<vector<int> >&v,int n)
 {
     for(int i=0;i<n/2;i++)
@@ -111,37 +114,86 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
      
  }
-void fun()
+ll gcd(ll a,ll b)
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
+    if(b==0)
+    return a;
+
+    a%=b;
+    return gcd(b,a);
+}
+ bool perform(vll &v,int x)
+ {
+    REP(i,0,v.size())
+    {
+        REP(j,i+1,v.size())
+        {
+           if(gcd(v[i]+x,v[j]+x)!=1)
+            return false;
+        }
+    }
+    return true;
+ }
+ bool bs(vll &v,ll l,ll h)
+ {
+    if(l<=h)
+    {
+        int mid=l+(h-l)/2;
+        if(perform(v,mid)==true)
+        {
+            
+            return true;
+        }
+        
+        return bs(v,l,mid-1);
+        return bs(v,mid+1,h);
+
+        return false;
+    }
+    else
+    return false;
+ }
+void fun()
 {  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
+    int n;
+    cin>>n;
+    vll v(n+1);
+    REP(i,1,n+1)
+    {
+        cin>>v[i];
+    }
+    bool valid=true;
 
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
+    REP(i,1,n+1)
+    {
+        REP(j,i+1,n+1)
+        {
+            if(v[i]==v[j])
+            valid=false;
+        }
+    }
 
-    
+
+    REP(m,2,n+1)
+    {
+        vector<int>cnt(m);
+        for(int i=1;i<=n;i++)
+        {
+            cnt[v[i]%m]++;
+        }
+
+        bool is1=false;
+        REP(x,0,m)
+        {
+            if(cnt[x]<2)
+            is1=true;
+        }
+
+        if(!is1)
+        valid=false;
+    }
+
+    cout<<(valid?"YES":"NO")<<endl;
 }
 
   
@@ -151,8 +203,8 @@ int32_t main()
        ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-  //t=1;
+    ll t;
+    t=1;
     cin>>t;
    while(t--)
     fun();

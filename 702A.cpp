@@ -113,35 +113,27 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
 void fun()
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
+   int n;
+   cin>>n;
+   vi v(n);
    REP(i,0,n)
+   cin>>v[i];
+    if(n==1)
+    cout<<1;
+    else{
+   vi dp(n+1,1);
+   int Max=0;
+   for(int i=1;i<n;i++)
    {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
-{  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
-
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
-
+    if(v[i]>v[i-1])
+    {dp[i]=max(dp[i],dp[i-1]+1);
     
+   }
+   Max=max(Max,dp[i]);
+   }
+
+   cout<<Max;
+    }
 }
 
   
@@ -152,8 +144,8 @@ int32_t main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t;
-  //t=1;
-    cin>>t;
+  t=1;
+    //cin>>t;
    while(t--)
     fun();
 //fun();

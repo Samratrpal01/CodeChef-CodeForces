@@ -113,34 +113,19 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
 void fun()
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
-{  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
+    int n;
+    cin>>n;
+    vi v(n);
+    REP(i,0,n)
+    cin>>v[i];
+  int Max=v[0],Min=v[0];
+    REP(i,0,n)
+ {   
+    Max=max(Max,Max|v[i]);
+    Min=min(Min,Min&v[i]);
+}
 
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
-
+cout<<abs(Max-Min)<<endl;
     
 }
 

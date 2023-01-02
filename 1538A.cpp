@@ -113,34 +113,27 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
 void fun()
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
-{  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
-
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
-
+   int n; cin >> n;
+    vector<int> a(n);
+    int mn =INT_MAX, mx = INT_MIN;
+    vector<int> dp(n, 123456789);
+    for (int i = 0; i < n; ++i){
+        cin >> a[i];
+        mn = min(a[i], mn);
+        mx = max(a[i], mx);
+    }
+ 
+    int res = 0, mnpos = 0, mxpos = 0;
+    for (int i = 0; i < n; ++i){
+        if (a[i] == mn){
+            mnpos = i;
+        }
+        if (a[i] == mx){
+            mxpos = i;
+        }
+    }
+    cout << min(
+        max(mxpos, mnpos) + 1,min( (n - 1) - min(mxpos, mnpos) + 1, min((n - 1) - mxpos + mnpos + 2, (n - 1) - mnpos + mxpos + 2)))<<endl;
     
 }
 

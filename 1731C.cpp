@@ -25,6 +25,7 @@ using namespace std;
 #define pn cout<<"NO\n";
 #define py cout<<"YES\n";
 #define MOD 998244353
+// assert(q==0); is usally used to terminate whole when certain codition not follow true.
 void rotate(vector<vector<int> >&v,int n)
 {
     for(int i=0;i<n/2;i++)
@@ -111,38 +112,69 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
      
  }
-void fun()
+
+ 
+#define mod 1000000007
+ll modexp(ll a, ll b);
+ll sum_square(ll n)
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
-{  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
-
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
-
+    ll ans=(((n*(n+1))%mod)*(2*n+1)%mod)%mod;;
+    ans=(ans*modexp(6, mod-2))%mod;
     
+    return ans;
 }
+ll sum_linear(ll n)
+{
+    ll ans=(n*(n+1))%mod;
+    ans=(ans*modexp(2, mod-2))%mod;
+    
+    return ans;
+}
+ll modexp(ll a, ll b)
+{
+    ll ans=1;
+    
+    while(b>0){
+        if((b%2)==1){
+            ans=(ans*a)%mod;
+        }
+        a=(a*a)%mod;
+        b/=2;
+    }
+    
+    return ans;
+}
+const int N=(1<<18)+3;
+int cnt[N];
+int used[N];
+int T;
+void fun()
+{   ll n;
+    cin>>n;
+    int x=0,y=0;
+    T++;
+    ll ans=(ll)n*(n+1)/2;
+    REP(i,0,n)
+    {
+        if(used[x]<T)
+           cnt[x]=0;
+            used[x]=T;
+            cnt[x]++;
+
+            cin>>y;
+            x^=y;
+            for(int c=0;c<(1<<9);c++)
+            {
+                if(used[x^(c*c)]==T)
+                {
+                    ans-=cnt[x^(c*c)];
+                }
+            }
+        
+    }
+    cout<<ans<<endl;
+}
+    
 
   
 
@@ -151,8 +183,8 @@ int32_t main()
        ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-  //t=1;
+    ll t;
+    t=1;
     cin>>t;
    while(t--)
     fun();

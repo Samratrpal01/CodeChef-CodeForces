@@ -25,6 +25,7 @@ using namespace std;
 #define pn cout<<"NO\n";
 #define py cout<<"YES\n";
 #define MOD 998244353
+// assert(q==0); is usally used to terminate whole when certain codition not follow true.
 void rotate(vector<vector<int> >&v,int n)
 {
     for(int i=0;i<n/2;i++)
@@ -111,38 +112,52 @@ void solve(ll i,ll j,ll &temp,string a[2],bool v[][200001],ll n)
  }
      
  }
-void fun()
+
+ 
+#define mod 1000000007
+ll modexp(ll a, ll b);
+ll sum_square(ll n)
 {
-   ll n,k;
-   cin>>n>>k;
-   pair<int,int>v[n];
-   REP(i,0,n)
-   {
-    cin>>v[i].second;
-   }
-   REP(i,0,n)
-   {
-    cin>>v[i].first;
-   }
-    sort(v,v+n);
-   
-   int temp=0;
-int i;
-for(i=0;i<n and k>0;)
-{  
-    temp+=k;
-    while(v[i].second<=temp and i<n)
-    i++;
-   
-   k-=v[i].F;
-   
-}   
-
-   i==n?cout<<"YES\n":cout<<"NO\n";
-   
-
+    ll ans=(((n*(n+1))%mod)*(2*n+1)%mod)%mod;;
+    ans=(ans*modexp(6, mod-2))%mod;
     
+    return ans;
 }
+ll sum_linear(ll n)
+{
+    ll ans=(n*(n+1))%mod;
+    ans=(ans*modexp(2, mod-2))%mod;
+    
+    return ans;
+}
+ll modexp(ll a, ll b)
+{
+    ll ans=1;
+    
+    while(b>0){
+        if((b%2)==1){
+            ans=(ans*a)%mod;
+        }
+        a=(a*a)%mod;
+        b/=2;
+    }
+    
+    return ans;
+}
+void fun()
+{   ll n;
+    cin>>n;
+        
+        ll ans=0;
+        
+        ans=(ans+sum_square(n))%mod;
+        ans=(ans+sum_square(n-1))%mod;
+        ans=(ans+sum_linear(n-1))%mod;
+        ans=(ans*2022)%mod;
+        
+        cout<<ans<<"\n";
+}
+    
 
   
 
@@ -151,8 +166,8 @@ int32_t main()
        ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
-  //t=1;
+    ll t;
+    t=1;
     cin>>t;
    while(t--)
     fun();
